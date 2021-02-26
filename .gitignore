@@ -1,0 +1,6 @@
+.vscode
+.DS_*
+*.py
+*.out
+minishell
+notes*

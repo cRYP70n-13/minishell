@@ -5,13 +5,8 @@
 
 # define SHELL_NAME "minishell"
 
-//Macrofication
-# define FALSE          0
-# define TRUE           1
-# define NOT            !
-# define AND            &&
-# define OR             ||
-# define ELIF           else if // why not?
+# define RED        "\033[1;31m"
+# define GREEN      "\033[1;32m"
 
 # define DIGITS         "0123456789"
 # define ASCII_LOWER    "abcdefghijklmnopqrstuvwxyz"
@@ -23,19 +18,27 @@
 # define DOUBLE_QT      '"'
 # define BACK_SLASH     '\\'
 # define EOL            '\n'
+# define SEP            ';'
+
+
+# define AND            &&
+# define OR             ||
+# define FALSE          0
+# define TRUE           1
+
 # define FLUSH          put_char('\n')
 # define PASS           0;
 
 // BUFF_SIZE for get_next_line
 # undef BUFF_SIZE
-#  define BUFF_SIZE 1
+#  define BUFF_SIZE 1 //128
 
 //Max file descriptors that can be opened simultaneously
 # ifndef OPEN_MAX
-#  define OPEN_MAX 4096
+#  define OPEN_MAX 512
 # endif
 
-// 42 norminette: parameterized macros are forbidden
+//!!! 42 norminette: parameterized macros are forbidden
 
 # define MALLOC(ptr)        (ptr) = malloc(sizeof(*(ptr) ))
 # define ARRLLOC(p, l)      (p) = malloc(sizeof(*(p) ) * l)

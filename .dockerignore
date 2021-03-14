@@ -1,3 +1,4 @@
 # I didn't ignore /git intentionally, for conveniency reasons.
 *.o
 Dockefile
+start.sh

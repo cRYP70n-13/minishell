@@ -25,23 +25,24 @@ int read_input(char **input)
     return (0);
 }
 
-//This is the shell loop.
-//repl => Read-Eval-Print-Loop
+/*
+**  This is the shell loop
+**  repl => Read-Eval-Print-Loop
+*/
 int repl(t_env *env)
 {
     int     ret; 
     char    *input;
-    size_t  len;
 
     put_str(SHELL_NAME);
     put_str("$ ");
-
     if (read_input(&env->input->line) == -1)
         return (-1);
     else if (line_isempty(env->input->line))
         return (0);
 
-    //print(env->input->line);
+    print(env->input->line);
+    printf("######################\n");
 
     /* TODO:
         -> Split commands then tokenize.
@@ -49,12 +50,12 @@ int repl(t_env *env)
 
     env->input->len = str_len(env->input->line);
 
-    // ret = split_commands(env);
-    ret = tokenize_input(env); // ""
+    ret = split_commands(env);
+    // ret = tokenize_input(env); // ""
     // ret = lex_tokens(env);
     //ret = parse_tokens();
     //ret = execute();
-    return (0);
+    return (ret);
 }
 
 int main(int argc, char **argv, char **env_vars)

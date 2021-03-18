@@ -1,13 +1,13 @@
 
 #ifndef MACROS_H
 # define MACROS_H
-#include "minishell.h"
-
+# include "minishell.h"
+# undef BUFF_SIZE
+#  define BUFF_SIZE 32
+# ifndef OPEN_MAX
+#  define OPEN_MAX 512
+# endif
 # define SHELL_NAME "minishell"
-
-# define RED        "\033[1;31m"
-# define GREEN      "\033[1;32m"
-
 # define DIGITS         "0123456789"
 # define ASCII_LOWER    "abcdefghijklmnopqrstuvwxyz"
 # define ASCII_UPPER    "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
@@ -19,39 +19,26 @@
 # define BACK_SLASH     '\\'
 # define EOL            '\n'
 # define SEP            ';'
-
-
-# define AND            &&
-# define OR             ||
+# define RED        "\033[1;31m"
+# define GREEN      "\033[1;32m"
+/*
+**
+*/
 # define FALSE          0
 # define TRUE           1
-
-# define FLUSH          put_char('\n')
+# define FLUSH          write(1, '\n', 1)
 # define PASS           0;
 
-// BUFF_SIZE for get_next_line
-# undef BUFF_SIZE
-#  define BUFF_SIZE 1 //128
-
-//Max file descriptors that can be opened simultaneously
-# ifndef OPEN_MAX
-#  define OPEN_MAX 512
-# endif
-
 //!!! 42 norminette: parameterized macros are forbidden
-
 # define MALLOC(ptr)        (ptr) = malloc(sizeof(*(ptr) ))
 # define ARRLLOC(p, l)      (p) = malloc(sizeof(*(p) ) * l)
-
-# define IS_NUM(c)          (c >= '0' AND c <= '0')
-# define IS_LOWER(c)        (c >= 'a' AND c <= 'z')
-# define IS_UPPER(c)        (c >= 'A' AND c <= 'Z')
-# define IS_ALPHA(c)        (IS_LOWER(c) OR IS_UPPER(c))
-
+# define IS_NUM(c)          (c >= '0' && c <= '0')
+# define IS_LOWER(c)        (c >= 'a' && c <= 'z')
+# define IS_UPPER(c)        (c >= 'A' && c <= 'Z')
+# define IS_ALPHA(c)        (IS_LOWER(c) || IS_UPPER(c))
 # define ENV                t_env *env
 # define LIST               t_node **list
 
 //define signal codes
-
 
 #endif

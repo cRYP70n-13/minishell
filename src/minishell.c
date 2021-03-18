@@ -24,7 +24,6 @@ int read_input(char **input)
         return (-1);
     return (0);
 }
-
 /*
 **  This is the shell loop
 **  repl => Read-Eval-Print-Loop
@@ -45,16 +44,15 @@ int repl(t_env *env)
     printf("######################\n");
 
     /* TODO:
-        -> Split commands then tokenize.
+        -> Split commands then tokenize
     */
-
     env->input->len = str_len(env->input->line);
-
+    
     ret = split_commands(env);
     // ret = tokenize_input(env); // ""
     // ret = lex_tokens(env);
-    //ret = parse_tokens();
-    //ret = execute();
+    // ret = parse_tokens();
+    // ret = execute();
     return (ret);
 }
 

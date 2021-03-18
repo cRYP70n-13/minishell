@@ -29,27 +29,29 @@ t_command    *single_quoted_cmd(ENV)
 
 t_command    *double_quoted_cmd(ENV)
 {
+    return (NULL);
     t_command   *cmd;
     char        *line;
-    t_bool      open_quote;
+    t_bool      quote_is_open;
     size_t      j;
-
-
 
     cmd = new_cmd();
     line = env->input->line;
-    j = env->input->i;
-    while (j < env->input->len)
+    j = env->input->i + 1;
     // 'echo' 'peace;' ";" ; "cat file;"
+    while (j < env->input->len)
     {
-        if (line[j] == DOUBLE_QT)
+        if (line[j] == SEP && line[j - 1] != BACK_SLASH && !quote_is_open)
+            break ;
+        else if (line[j] == DOUBLE_QT)
         {
-            open_quote = TRUE;
+            quote_is_open = !quote_is_open;
         }
+        j++;
     }
-    
-    
-    open_quote = FALSE;
+    bye;
+    cmd->cmd = sub_str(line, env->input->i, j);
+    env->input->i = j;
     return (cmd);
 }
 
@@ -58,14 +60,25 @@ t_command       *get_command(ENV)
     t_command   *cmd;
     char        *line;
     int         j;
+    t_bool      double_quote_is_open;
+    t_bool      single_quote_is_open;
 
     cmd = new_cmd();
-    j = env->input->i;
     line = env->input->line;
+    double_quote_is_open = FALSE;
+    single_quote_is_open = FALSE;
+    j = env->input->i;
     while (j < env->input->len)
     {
-        if (line[j] == ';' && line[j - 1] != BACK_SLASH)
-            break ;
+        if (line[j] == DOUBLE_QT)
+            double_quote_is_open = !double_quote_is_open;
+        else if (line[j] == SINGLE_QT)
+            single_quote_is_open = !single_quote_is_open;
+        else if (line[j] == SEP && line[j - 1] != BACK_SLASH)
+        {
+            if (!double_quote_is_open && !single_quote_is_open && ++j)
+                break ;
+        }
         j++;
     }
     cmd->cmd = sub_str(line, env->input->i, j);
@@ -96,6 +109,7 @@ t_bool      split_commands(ENV)
             print(cmd->cmd);
             print("---");
             push_back(&env->commands, cmd);
+            // bye;
         }
         else
             i++;

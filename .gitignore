@@ -2,5 +2,6 @@
 .DS_*
 *.py
 *.out
+*.in
 minishell
 notes*

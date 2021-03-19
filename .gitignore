@@ -3,5 +3,6 @@
 *.py
 *.out
 *.in
+*.swp
 minishell
 notes*

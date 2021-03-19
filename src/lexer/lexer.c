@@ -9,10 +9,8 @@ int     lex_tokens(ENV)
     while (iter)
     {
         token = iter->data;
-
         //if tok == SEP -> new_cmd
         //if tok ==  -> new_cmd
-
 
         if (0)
         {

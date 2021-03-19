@@ -19,8 +19,8 @@
 */
 
 // main
-int         repl(ENV);
-int         read_input(char **input);
+int             repl(ENV);
+int             read_input(char **input);
 
 // Constructos
 t_token         *new_token(void *tok);
@@ -85,10 +85,18 @@ void        safe_free(void **p);
 void        destroy_lst(LIST);
 void        delete_lst(LIST);
 
-
 //Parsing 
 t_bool      split_by_type(char *buff, t_node **tokens);
 int         tokenize(char *buff, ENV);
+
+
+t_command   *get_quoted_command(ENV);
+t_command   *single_quoted_cmd(ENV);
+t_command   *double_quoted_cmd(ENV);
+t_command   *get_command(ENV);
+t_bool      split_commands(ENV);
+
+
 
 
 

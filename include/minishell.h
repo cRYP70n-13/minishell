@@ -10,7 +10,17 @@
 # include "functions.h"
 # include "../dbg/my_dbg.h"
 
-static 
-char *builtins[] = {"echo", "cd", "pwd", "export", "unset", "env", "exit"};
+// it's tempo', I promise.
+static
+char *builtins[] =
+{
+    "echo",
+    "cd",
+    "pwd",
+    "export",
+    "unset",
+    "env",
+    "exit"
+};
 
 #endif

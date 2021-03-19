@@ -24,14 +24,15 @@ int read_input(char **input)
         return (-1);
     return (0);
 }
+
 /*
 **  This is the shell loop
 **  repl => Read-Eval-Print-Loop
 */
 int repl(t_env *env)
 {
-    int     ret; 
-    char    *input;
+    int         ret;
+    char        *input;
 
     put_str(SHELL_NAME);
     put_str("$ ");
@@ -41,33 +42,21 @@ int repl(t_env *env)
         return (0);
 
     /* TODO:
-        + Split commands
+        + Split commands '?'
         - Tokenize each command
     */
 
+
     env->input->len = str_len(env->input->line);
+    env->input->i = 0;
     ret = split_commands(env);
-    // {
-    //     t_command   *cmd;
-    //     t_node      *iter;
+    // print_commands(&env->commands);
+    
+    ret = tokenize_commands(env);
 
-    //     iter = env->commands;
-    //     while (iter)
-    //     {
-    //         cmd = (t_command*)iter->data;
-    //         // yo;
-    //         print(cmd->cmd);
-    //         // count("cmd");
-    //         // print_tokens(&cmd->tokens);
-    //         iter = iter->next;
-    //     }
-    // }
-
-    // ret = tokenize_commands(env); // ""
-    // ret = lex_tokens(env);
-    // ret = parse_tokens();
-    // ret = execute();
-    reset_env(env);
+    // ret = parse_commands(env);
+    // ret = execute(env);
+    // reset_env(env);
     return (ret);
 }
 

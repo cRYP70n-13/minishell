@@ -26,7 +26,7 @@ void      push_back(t_node **list, void *data)
     }
     if (!*list)
     {
-        *list = new_node(data);
+        *list = new_node(data); //
         return ;
     }
     iter = *list;

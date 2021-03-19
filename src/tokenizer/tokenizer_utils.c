@@ -1,4 +1,5 @@
 
+
 #include "minishell.h"
 
 t_token    *tokenize_quoted_command(ENV, t_command *cmd)
@@ -85,40 +86,4 @@ t_token *get_token(ENV, t_command *cmd)
     token = new_token(clean_sub_str(line, cmd->i, j, skip));
     cmd->i = j;
     return token;
-}
-
-t_bool  tokenize_commands(ENV)
-{
-    t_node      *iter;
-    t_command   *cmd;
-    t_token     *token;
-    char        *line;
-    int         i;
-
-    iter = env->commands;
-    while (iter)
-    {
-        cmd = iter->data;
-        line = cmd->cmd;
-        cmd->tokens = NULL;
-        print(cmd->cmd);
-        DN(cmd->len);
-        print("$$$$$$$$$$$");
-        i = 0;
-        while (i < cmd->len)
-        {
-            if (line[i] == SPACE && ++i)
-                continue ;
-            if (line[i] == DOUBLE_QT || line[i] == SINGLE_QT)
-                token = tokenize_quoted_command(env, cmd);
-            else
-                token = get_token(env, cmd);
-            i = cmd->i;
-            print(token->tok);
-            push_back(&cmd->tokens, (void*)token);
-            i++;
-        }
-        iter = iter->next;
-    }    
-    return 0;
 }

@@ -24,7 +24,7 @@ void    ft_exitTime(int argc, char **argv)
     alarm(exitTime);
 }
 
-bool    nothing() {return 0;} //Yeah, I know..
+bool    nothing(void) {return 0;} //Yeah, I know..
 
 void    debugMem(void *mem)
 {

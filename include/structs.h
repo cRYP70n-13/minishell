@@ -29,13 +29,13 @@ typedef struct			s_array
 	int					size;
 }						t_array;
 
-typedef struct			s_token
+typedef struct			s_token // 
 {
-	char				*tok; //"cd" ";"
-	char				*type; //BUILTIN, ARG, SEP,  "PIPE"
-	size_t				*len;
+	char				*tok; 	//"cd" ";"
+	char				*type; 	//BUILTIN, ARG, SEP,  "PIPE"
+	size_t				len;
 	int					order; //...??
-	t_bool				quoted; 
+	t_bool				quoted; //???
 }						t_token;
 
 typedef struct			s_command
@@ -61,7 +61,6 @@ typedef struct			s_env
 	char				**argv;
 	char				**env_var;
 	t_input				*input;
-	t_node				*tokens;
 	t_node				*commands;
 	//char				**builtins;
 }						t_env;

@@ -1,6 +1,5 @@
 
-#include "../../include/minishell.h"
-
+#include "minishell.h"
 
 void    print_array(t_array *arr, t_bool minus)
 {
@@ -12,11 +11,24 @@ void    print_array(t_array *arr, t_bool minus)
             DN(arr->arr[i]);
 }
 
+void    print_commands(t_node **commands)
+{
+    t_command   *cmd;
+    t_node      *iter;
+
+    iter = *commands;
+    while (iter)
+    {
+        cmd = iter->data;
+        print(cmd->cmd);
+        iter = iter->next;
+    }
+}
+
 void    print_tokens(t_node **tokens_list)
 {
     t_node  *iter;
     t_token *token;
-
 
     iter = *tokens_list; 
     while (iter)

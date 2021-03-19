@@ -62,20 +62,31 @@ t_command       *get_command(ENV)
     int         j;
     t_bool      double_quote_is_open;
     t_bool      single_quote_is_open;
+    t_bool      back_slash;
 
     cmd = new_cmd();
     line = env->input->line;
     double_quote_is_open = FALSE;
     single_quote_is_open = FALSE;
+    back_slash = FALSE;
     j = env->input->i;
     while (j < env->input->len)
     {
-        if (line[j] == DOUBLE_QT)
-            double_quote_is_open = !double_quote_is_open;
-        else if (line[j] == SINGLE_QT)
-            single_quote_is_open = !single_quote_is_open;
-        else if (line[j] == SEP && line[j - 1] != BACK_SLASH)
+        if (line[j] == BACK_SLASH)
+            back_slash = TRUE;
+        if (line[j] == DOUBLE_QT && !back_slash)
         {
+            back_slash = FALSE;
+            double_quote_is_open = !double_quote_is_open;
+        }
+        else if (line[j] == SINGLE_QT && !back_slash)
+        {
+            back_slash = FALSE;
+            single_quote_is_open = !single_quote_is_open;
+        }
+        else if (line[j] == SEP && !back_slash)
+        {
+            back_slash = FALSE;
             if (!double_quote_is_open && !single_quote_is_open && ++j)
                 break ;
         }
@@ -104,12 +115,10 @@ t_bool      split_commands(ENV)
                 cmd = get_quoted_command(env);
             else
                 cmd = get_command(env);
-            i = env->input->i; //updates index
-            print("---");
-            print(cmd->cmd);
-            print("---");
+            // cmd->len = i - env->input->i;
+            cmd->len = str_len(cmd->cmd);
             push_back(&env->commands, cmd);
-            // bye;
+            i = env->input->i;
         }
         else
             i++;

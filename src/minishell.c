@@ -40,19 +40,34 @@ int repl(t_env *env)
     else if (line_isempty(env->input->line))
         return (0);
 
-    print(env->input->line);
-    printf("######################\n");
-
     /* TODO:
-        -> Split commands then tokenize
+        + Split commands
+        - Tokenize each command
     */
+
     env->input->len = str_len(env->input->line);
-    
     ret = split_commands(env);
-    // ret = tokenize_input(env); // ""
+    // {
+    //     t_command   *cmd;
+    //     t_node      *iter;
+
+    //     iter = env->commands;
+    //     while (iter)
+    //     {
+    //         cmd = (t_command*)iter->data;
+    //         // yo;
+    //         print(cmd->cmd);
+    //         // count("cmd");
+    //         // print_tokens(&cmd->tokens);
+    //         iter = iter->next;
+    //     }
+    // }
+
+    // ret = tokenize_commands(env); // ""
     // ret = lex_tokens(env);
     // ret = parse_tokens();
     // ret = execute();
+    reset_env(env);
     return (ret);
 }
 

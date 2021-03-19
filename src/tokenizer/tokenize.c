@@ -1,68 +1,68 @@
 
 #include "minishell.h"
 
-t_token    *tokenize_quoted_input(ENV)
+t_token    *tokenize_quoted_command(ENV, t_command *cmd)
 {
     t_token    *token;
 
-    if (env->input->line[env->input->i] == SINGLE_QT)
-        token = tokenize_single_quoted(env);
+    if (env->input->line[cmd->i] == SINGLE_QT)
+        token = tokenize_single_quoted(env, cmd);
     else
-        token = tokenize_double_quoted(env);
+        token = tokenize_double_quoted(env, cmd);
     if (token)
         token->quoted = TRUE;
     return (token);
     //Should be cleaned from backSlashes
 }
 
-t_token    *tokenize_single_quoted(ENV)
+t_token    *tokenize_single_quoted(ENV, t_command *cmd)
 {
     t_token     *token;
-    size_t      j;
     char        *line;
+    size_t      j;
 
-    line = env->input->line;
-    j = env->input->i;
-    while (++j < env->input->len)
+    line = cmd->cmd;
+    j = cmd->i;
+    while (++j < cmd->len)
         if (line[j] == SINGLE_QT && line[j - 1] != BACK_SLASH)
         {
             j++;
             break;
         }
-    token = new_token(sub_str(line, env->input->i, j));
-    env->input->i = j;
+    token = new_token(sub_str(line, cmd->i, j));
+    cmd->i = j;
     return (token);
 }
 
-t_token    *tokenize_double_quoted(ENV)
+t_token    *tokenize_double_quoted(ENV, t_command *cmd)
 {
     t_token     *token;
     size_t      j;
     char        *line;
 
-    line = env->input->line;
-    j = env->input->i;
-    while (++j < env->input->len)
+    line = cmd->cmd;
+    j = cmd->i;
+    while (++j < cmd->len)
         if (line[j] == DOUBLE_QT && line[j - 1] != BACK_SLASH)
         {
             j++;
             break;
         }
-    token = new_token(sub_str(line, env->input->i, j));
-    env->input->i = j;
+    token = new_token(sub_str(line, cmd->i, j));
+    cmd->i = j;
     return (token);
 }
 
 # define ARR_SIZE 256
 
-t_token *get_token(ENV)
+t_token *get_token(ENV, t_command *cmd)
 {
-    t_token *token;
-    t_array *skip;
-    size_t  j;
-    short   k;
-    char    *line;
-    
+    t_token     *token;
+    char        *line;
+    t_array     *skip;
+    size_t      j;
+    short       k;
+
     //To handle:
     //  +[ cd d\ ir]
     //  -[echo okay \\ > file]
@@ -70,49 +70,55 @@ t_token *get_token(ENV)
 
     skip = new_array(ARR_SIZE);
     k = 0;
-    j = env->input->i + 1;
-    line = env->input->line;
-    while (j < env->input->len)
+    line = cmd->cmd;
+    j = cmd->i;
+    while (j < cmd->len)
     {
+        write(1, &line[j], 1);
         if (line[j] == BACK_SLASH)
             skip->arr[k++] = j;
         else if (line[j] == ' ' && line[j - 1] != BACK_SLASH)
             break ;
         j++;
     }
-    token = new_token(clean_sub_str(line, env->input->i, j, skip));
-    env->input->i = j;
+    write(1, "\n", 1);
+    token = new_token(clean_sub_str(line, cmd->i, j, skip));
+    cmd->i = j;
     return token;
 }
 
-t_bool tokenize_input(ENV)
+t_bool  tokenize_commands(ENV)
 {
-    t_token *token;
-    char    *line;
-    int     i;
-    int     j;
+    t_node      *iter;
+    t_command   *cmd;
+    t_token     *token;
+    char        *line;
+    int         i;
 
-    env->tokens = NULL;
-    line = env->input->line;
-    env->input->len = str_len(line);
-    i = 0;
-    while (i < env->input->len)
+    iter = env->commands;
+    while (iter)
     {
-        env->input->i = i;
-        if (line[i] != SPACE)
+        cmd = iter->data;
+        line = cmd->cmd;
+        cmd->tokens = NULL;
+        print(cmd->cmd);
+        DN(cmd->len);
+        print("$$$$$$$$$$$");
+        i = 0;
+        while (i < cmd->len)
         {
+            if (line[i] == SPACE && ++i)
+                continue ;
             if (line[i] == DOUBLE_QT || line[i] == SINGLE_QT)
-                token = tokenize_quoted_input(env);
+                token = tokenize_quoted_command(env, cmd);
             else
-                token = get_token(env);
-            i = env->input->i;
-            push_back(&env->tokens, (void*)token);
-        }
-        else
+                token = get_token(env, cmd);
+            i = cmd->i;
+            print(token->tok);
+            push_back(&cmd->tokens, (void*)token);
             i++;
-    }
-    print("############");
-    print_tokens(&env->tokens);
-    print("############");
+        }
+        iter = iter->next;
+    }    
     return 0;
 }

@@ -33,9 +33,7 @@ void      push_back(t_node **list, void *data)
     while (iter->next)
         iter = iter->next;
     iter->next = new_node(data);
-    //printf("[--> %s]\n", token->tok);
-
-    if (!iter)
+    if (!iter) //alloc_err
         return ;
 }
 

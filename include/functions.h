@@ -28,11 +28,11 @@ t_array         *new_array(int size);
 t_env           *init_env(int argc, char **argv, char **env_var);
 
 // Tokenizer
-t_bool          tokenize_input(ENV);
-t_token         *get_token(ENV);
-t_token         *tokenize_quoted_input(ENV);
-t_token         *tokenize_single_quoted(ENV);
-t_token         *tokenize_double_quoted(ENV);
+t_bool          tokenize_commands(ENV);
+t_token         *get_token(ENV, t_command *cmd);
+t_token         *tokenize_quoted_command(ENV, t_command *cmd);
+t_token         *tokenize_single_quoted(ENV, t_command *cmd);
+t_token         *tokenize_double_quoted(ENV, t_command *cmd);
 
 // Commands
 t_bool          split_commands(ENV);
@@ -87,8 +87,14 @@ void        delete_lst(LIST);
 
 //Parsing 
 t_bool      split_by_type(char *buff, t_node **tokens);
-int         tokenize(char *buff, ENV);
 
+// Reseting 
+void        reset_env(ENV);
+void        reset_commands(ENV);
+void        reset_tokens(t_node **tokens);
+
+// Reseting 
+void    destroy_token(t_token *token);
 
 t_command   *get_quoted_command(ENV);
 t_command   *single_quoted_cmd(ENV);

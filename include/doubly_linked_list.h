@@ -13,17 +13,23 @@
 #ifndef __DOUBLY_LINKED_LIST_H__
 # define __DOUBLY_LINKED_LIST_H__
 
-typedef struct node
+#include <stdlib.h>
+#include <stdio.h>
+
+typedef struct		s_node
 {
-	doubly_linked_list *prev;
+	s_node *prev;
 	void *value;
-	doubly_linked_list *next;
-}				node;
+	s_node *next;
+}					t_node;
 
 // Given a ref to the head of DLL and it append a new Node at the end.
-void	append(node **head, void *data);
+void	append(t_node **head, void *data);
 
 // Given a ref to the head of DLL and it pushs a new Node at the beginning
-void	push(node **head, void *data);
+void	push(t_node **head, void *data);
+
+// Reverse the Linked list before pushing it to the file
+s_node		*reverse_ll(t_node *head);
 
 #endif

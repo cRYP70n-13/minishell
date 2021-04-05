@@ -1,6 +1,7 @@
-
 #ifndef STRUCTS_H
 # define STRUCTS_H
+
+# include <stdlib.h>
 
 typedef	char			t_bool;
 

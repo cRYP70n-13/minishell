@@ -29,20 +29,25 @@ typedef struct			s_array
 	int					size;
 }						t_array;
 
-typedef struct			s_token // 
+typedef struct			s_token
 {
-	char				*tok; 	//"cd" ";"
-	char				*type; 	//BUILTIN, ARG, SEP,  "PIPE"
-	size_t				len;
+	char				*tok; //"cd" ";"
+	char				*type; //BUILTIN, ARG, SEP,  "PIPE"
+	size_t				*len;
 	int					order; //...??
-	t_bool				quoted; //???
+	t_bool				quoted; 
 }						t_token;
+
+/*
+** -tokens:	list of command tokens ["ls", "-la", "file"]
+** -
+** -ret		return value of the command,
+**			if ret == ZERO AND sep == "&&" then stop executing.
+*/
 
 typedef struct			s_command
 {
 	char				*cmd;
-	int					len;
-	int					i;
 	t_node				*tokens;
 	t_bool				ret;
 	t_bool				sep;
@@ -61,7 +66,8 @@ typedef struct			s_env
 	char				**argv;
 	char				**env_var;
 	t_input				*input;
-	t_node				*commands;
+	t_node              *tokens;
+	t_node              *commands; //[, , , ], [, , , ]
 	//char				**builtins;
 }						t_env;
 

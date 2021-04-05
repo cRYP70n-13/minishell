@@ -1,5 +1,4 @@
 
-
 #include "minishell.h"
 
 t_token    *tokenize_quoted_command(ENV, t_command *cmd)

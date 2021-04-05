@@ -23,18 +23,14 @@ static size_t  dbg_i = 0;
 
 # define    DSN(s, n) printf("{%s: %f}\n", s, (double)n)
 # define    msg(s) printf("[ %s ]\n", s)
-# define    count(s) printf("[%s] [ %zu ]\n", s, dbg_i++);
+# define    count(s) printf("[ %s ] [ %zu ]\n", s, dbg_i++);
 
-# define    wtf DS("** WTF! **\n");
-# define    yo DS("## YO ##\n");
-# define    hi DS("## HI ##\n");
+# define    yo DS("{*YO*}");
+# define    hi DS("{*HI*}");
 # define    nl DC('\n');
 # define    sp put_str("--------------------------\n");
-# define    done DS("DONE\n"); exit(0);
 # define    bye exit(0);
-// # define    pass    nothing();
 
-void        nothing(void);
 void        exitfunc(int sig);
 void        ft_exitTime(int argc, char **argv);
 void        debugMem(void *mem);

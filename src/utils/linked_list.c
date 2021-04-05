@@ -26,14 +26,16 @@ void      push_back(t_node **list, void *data)
     }
     if (!*list)
     {
-        *list = new_node(data); //
+        *list = new_node(data);
         return ;
     }
     iter = *list;
     while (iter->next)
         iter = iter->next;
     iter->next = new_node(data);
-    if (!iter) //alloc_err
+    //printf("[--> %s]\n", token->tok);
+
+    if (!iter)
         return ;
 }
 

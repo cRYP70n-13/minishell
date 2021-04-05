@@ -19,28 +19,27 @@
 */
 
 // main
-int             repl(ENV);
-int             read_input(char **input);
+int         repl(ENV);
+int         read_input(char **input);
 
-// Constructors
+// Constructos
 t_token         *new_token(void *tok);
 t_array         *new_array(int size);
 t_env           *init_env(int argc, char **argv, char **env_var);
 
 // Tokenizer
-t_bool          tokenize_commands(ENV);
-t_bool          tokenize_command(ENV, t_command **command);
-t_token         *get_token(ENV, t_command *cmd);
-t_token         *tokenize_quoted_command(ENV, t_command *cmd);
-t_token         *tokenize_single_quoted(ENV, t_command *cmd);
-t_token         *tokenize_double_quoted(ENV, t_command *cmd);
-
-// Lexer
-t_bool          lex_command(ENV, t_command **command);
+t_bool          tokenize_input(ENV);
+t_token         *get_token(ENV);
+t_token         *tokenize_quoted_input(ENV);
+t_token         *tokenize_single_quoted(ENV);
+t_token         *tokenize_double_quoted(ENV);
 
 // Commands
 t_bool          split_commands(ENV);
 t_command       *new_cmd(void);
+
+// Lexer
+int             lex_tokens(ENV);
 
 // strtools_0
 size_t      str_len(const char *str);
@@ -86,29 +85,15 @@ void        safe_free(void **p);
 void        destroy_lst(LIST);
 void        delete_lst(LIST);
 
+
 //Parsing 
 t_bool      split_by_type(char *buff, t_node **tokens);
-
-// Reseting 
-void        reset_env(ENV);
-void        reset_commands(ENV);
-void        reset_tokens(t_node **tokens);
-
-// Destructors
-void        destroy_token(void **ptr);
-void        destroy_command(void **ptr);
-
-// Commands spliting
-t_command   *get_quoted_command(ENV);
-t_command   *single_quoted_cmd(ENV);
-t_command   *double_quoted_cmd(ENV);
-t_command   *get_command(ENV);
-t_bool      split_commands(ENV);
+int         tokenize(char *buff, ENV);
 
 
-// Temp utils
+
+//tmp_utils
 void    print_array(t_array *arr, t_bool minus);
 void    print_tokens(t_node **tokens);
-void    print_commands(t_node **commands);
 
 #endif

@@ -1,7 +1,7 @@
 
 #include "minishell.h"
 
-t_bool check_quotes(char *str)
+t_bool  check_quotes(char *str)
 {
     int     i;
     int     len;
@@ -45,7 +45,7 @@ t_bool  check_quoted_str(char *str, char c)
     len = str_len(str) - 1;
     i = 0;
     while (++i < len)
-        if (str[i] == c AND str[i - 1] != BACK_SLASH)
+        if (str[i] == c && str[i - 1] != BACK_SLASH)
             return (TRUE);
     return (FALSE);
 }
@@ -62,13 +62,13 @@ t_bool  is_bad_quoted(char *str)
     
     a = str[0];
     b = str[str_len(str) - 1];
-    if (a == SINGLE_QT AND b != SINGLE_QT)
+    if (a == SINGLE_QT && b != SINGLE_QT)
         return (TRUE);
-    else if (a != SINGLE_QT AND b == SINGLE_QT)
+    else if (a != SINGLE_QT && b == SINGLE_QT)
         return (TRUE);
-    else if (a == DOUBLE_QT AND b != DOUBLE_QT)
+    else if (a == DOUBLE_QT && b != DOUBLE_QT)
         return (TRUE);
-    else if (a != DOUBLE_QT AND b == DOUBLE_QT)
+    else if (a != DOUBLE_QT && b == DOUBLE_QT)
         return (TRUE);
     return (FALSE);
 }

@@ -1,6 +1,6 @@
 .vscode
 .DS_*
-*.py
+_*.py
 *.out
 *.in
 *.swp

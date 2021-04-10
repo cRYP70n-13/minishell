@@ -111,8 +111,8 @@ t_bool tokenize_input(ENV)
         else
             i++;
     }
-    print("############");
-    print_tokens(&env->tokens);
-    print("############");
+    // print("############");
+    // print_tokens(&env->tokens);
+    // print("############");
     return 0;
 }

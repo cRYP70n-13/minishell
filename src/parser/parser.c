@@ -9,9 +9,17 @@ int 	is_it_cmd(char *line)
     // 		   		* If the first quote is ("):
     // 		   			-> All the characters expect for ($, " and \) lose their meanings including single quotes, spaces and newlines
     // 		   			-> if its a (') All the characters lose their meaning except for (') itself.
+    return (0);
 }
 
 int 		check_for_double_quote(char *line)
 {
 	//TODO: Implement the logic to fill the structure with the quotes inside of the line
+	return (0);
+}
+
+int 		parse_special_chars(char *line)
+{
+	// TODO: ...
+	return (0);
 }

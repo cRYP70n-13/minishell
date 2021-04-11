@@ -51,6 +51,10 @@ int repl(t_env *env)
 
     // ret = split_commands(env);
     ret = tokenize_input(env); // ""
+
+
+    print_tokens(&env->tokens);
+
     // ret = lex_tokens(env);
     //ret = parse_tokens();
     //ret = execute();

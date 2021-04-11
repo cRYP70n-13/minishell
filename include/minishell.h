@@ -1,6 +1,6 @@
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#ifndef __MINISHELL_H__
+# define __MINISHELL_H__
 
 # include <stdio.h> //tmp?
 # include <unistd.h>
@@ -9,6 +9,7 @@
 # include "structs.h"
 # include "functions.h"
 # include "../dbg/my_dbg.h"
+# include "parser.h"
 
 static 
 char *builtins[] = {"echo", "cd", "pwd", "export", "unset", "env", "exit"};

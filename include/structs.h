@@ -66,7 +66,7 @@ typedef struct			s_env
 	char				**env_var;
 	t_input				*input;
 	t_node              *tokens;
-	t_node              *commands;
+	t_node              *commands; //[, , , ], [, , , ]
 	//char				**builtins;
 }						t_env;
 

@@ -27,7 +27,7 @@ typedef struct 			s_cmd
 
 typedef enum	e_my_bool {
 	false = 0,
-	true = !false  // This is just for the compiler so that he takes care of false value based on the data type
+	true = !false;  // This is just for the compiler so that he takes care of false value based on the data type
 } 				bool;
 
 int 		check_for_double_quote(char *line);

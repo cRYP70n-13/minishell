@@ -2,8 +2,8 @@
 
 int 	is_it_cmd(char *line)
 {
-	// TODO: Check if we should do this one
-	// NOTE: - if the line ends with backslash '\', we should read another line and push it to the old one then execute.
+	// todo: check if we should do this one
+	// note: - if the line ends with backslash '\', we should read another line and push it to the old one then execute.
 	// 		 - Once we read the line we search for quotes, the first one found triggers a quote state for the next characters
     // 		   that follows until we found the next quote from the same type
     // 		   		* If the first quote is ("):
@@ -50,6 +50,7 @@ t_cmd 		*parse_line(char *line, t_cmd *commands, t_redirections *redirections, t
 			line++;
 		if (_isalpha(*line))
 		{
+			// Construct the words in the **args and fill the structure
 			_strcpy(*commands->arg, line); // FIXME: This might be a prob !!!
 			line++;
 		}
@@ -61,4 +62,5 @@ t_cmd 		*parse_line(char *line, t_cmd *commands, t_redirections *redirections, t
 			parse_quotes(line, quotes);
 		line++;
 	}
+	return (commands);
 }

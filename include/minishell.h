@@ -10,6 +10,7 @@
 # include "../dbg/my_dbg.h"
 # include "parser.h"
 # include "utils.h"
+# include "errors.h"
 
 static char *builtins[] = {"echo", "cd", "pwd", "export", "unset", "env", "exit"};
 

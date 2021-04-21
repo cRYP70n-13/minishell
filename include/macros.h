@@ -1,7 +1,7 @@
 #ifndef MACROS_H
 # define MACROS_H
 
-#include "minishell.h"
+# include "minishell.h"
 
 # define SHELL_NAME "minishell"
 
